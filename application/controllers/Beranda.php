@@ -10,8 +10,10 @@ class Beranda extends CI_Controller {
 	 */
 	public function index()
 	{
+		$data['error'] = $this->session->flashdata('error');
+		$data['success'] = $this->session->flashdata('success');
 		$this->load->view('header');
-		$this->load->view('beranda');
+		$this->load->view('beranda', $data);
 		$this->load->view('footer');
 	}
 }

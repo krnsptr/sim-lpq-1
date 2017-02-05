@@ -14,18 +14,4 @@ class Daftar extends CI_Controller {
 		$this->load->view('front-end/daftar');
 		$this->load->view('front-end/footer');
 	}
-
-	public function ipb($halaman = 1)
-	{
-		$this->load->view('front-end/header');
-		if($halaman == 2) $this->load->view('front-end/daftar_ipb_2'); else $this->load->view('front-end/daftar_ipb_1');
-		$this->load->view('front-end/footer');
-	}
-
-	public function umum()
-	{
-		$this->load->view('front-end/header');
-		$this->load->view('front-end/daftar_umum');
-		$this->load->view('front-end/footer');
-	}
 }
