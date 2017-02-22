@@ -52,3 +52,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'beranda';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = TRUE;
+
+$route['user/program/tambah'] = 'user/program_tambah';
+$route['user/program/tambah/([1-2][1-3])'] = 'user/program_tambah/$1';
+$route['user/program/([a-z]+)/(1|2)/([0-3])'] = 'user/program_$1/$2/$3';
+
+$route['user/tambah/program'] = 'user/tambah_program';
+$route['user/edit/program'] = 'user/edit_program';
+$route['user/hapus/program'] = 'user/hapus_program';
+
+$route['user/jadwal/hapus/([1-3])/(:num)'] = 'user/penjadwalan_pengajar_hapus/$1/$2';
+
+$route['user/tambah/jadwal/2'] = 'user/tambah_penjadwalan_pengajar';
+$route['user/edit/jadwal/2'] = 'user/edit_penjadwalan_pengajar';
+$route['user/hapus/jadwal/2'] = 'user/hapus_penjadwalan_pengajar';
+$route['user/edit/jumlah-kelompok'] = 'user/edit_jumlah_kelompok';
+
+$route['user/edit/akun'] = 'user/edit_akun';
+$route['user/edit/password'] = 'user/edit_password';

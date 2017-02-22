@@ -17,6 +17,7 @@ class Guest_model extends CI_Model {
 	public function validasi() {
 		$this->form_validation->set_rules('username', 'Username', 'required|regex_match[/^[a-z0-9_]{4,16}+$/]|trim|is_unique[anggota.username]',array('regex_match' => 'Username hanya boleh mengandung huruf kecil, angka, dan underscore (4&ndash;16 karakter).'));
 		$this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
+		$this->form_validation->set_rules('ulangi_password', 'Ulangi Password', 'required|min_length[6]|matches[password]', array('required' => 'Password wajib diulangi.'));
 		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[anggota.email]');
 		$this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required|trim');
 		$this->form_validation->set_rules('nomor_id', 'Nomor Identitas', 'required|trim|is_unique[anggota.nomor_id]');
@@ -25,6 +26,7 @@ class Guest_model extends CI_Model {
 
 		$this->form_validation->set_message('required', '{field} wajib diisi.');
 		$this->form_validation->set_message('min_length', '{field} minimal {param} karakter.');
+		$this->form_validation->set_message('matches', 'Password tidak sama.');
 		$this->form_validation->set_message('valid_email', 'Format {field} salah.');
 		$this->form_validation->set_message('regex_match', 'Format {field} salah. Contoh: 081234567890 (10&ndash;13 digit).');
 		$this->form_validation->set_message('is_unique', '{field} sudah terdaftar.');
@@ -35,6 +37,7 @@ class Guest_model extends CI_Model {
 	public function daftar() {
 		if($this->validasi()) {
 			$data = $this->input->post();
+			unset($data['ulangi_password']);
 			$data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
 			$this->db->insert('anggota', $data);
 			if($this->db->affected_rows()) return TRUE;

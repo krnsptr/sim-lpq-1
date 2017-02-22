@@ -12,6 +12,7 @@ class Daftar extends CI_Controller {
 	public function __construct() {
         parent::__construct();
         $this->load->model('guest_model');
+        //$this->output->enable_profiler(TRUE);
         if(! $this->guest_model->pendaftaran_buka()) {
         	$this->session->set_flashdata('error','Pendaftaran sudah ditutup.<br />'.PHP_EOL);
         	redirect(site_url());
@@ -23,23 +24,28 @@ class Daftar extends CI_Controller {
 
     }
 
-	public function index($proses = NULL)
+    public function _cek_daftar() {
+    	if(!$this->session->userdata('id_anggota_baru')) {
+			redirect(site_url('daftar'));
+    	}
+    }
+
+	public function index()
 	{
-		if(is_null($proses)) {
-			$data['error'] = $this->session->flashdata('error');
-			$data['post'] = $this->session->userdata('post');
-			$this->load->view('header');
-			$this->load->view('daftar', $data);
-			$this->load->view('footer');
+		$data['error'] = $this->session->flashdata('error');
+		$data['post'] = $this->session->userdata('post');
+		$data['info'] = $this->db->select('isi')->where(array('nama' => 'pengumuman'))->get('sistem')->row()->isi;
+		$this->load->view('header');
+		$this->load->view('daftar', $data);
+		$this->load->view('footer');
+	}
+	public function proses() {
+		if($this->guest_model->daftar()) {
+			$this->session->set_userdata('id_anggota', $this->db->insert_id());
+			redirect(site_url('user/dasbor'));
 		}
 		else {
-			if($this->guest_model->daftar()) {
-				echo 'success';
-				$this->session->unset_tempdata('post');
-			}
-			else {
-				redirect(site_url('daftar'));
-			}
+			redirect(site_url('daftar'));
 		}
 	}
 }

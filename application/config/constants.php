@@ -83,3 +83,99 @@ defined('EXIT_USER_INPUT')     OR define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
+
+/* User-defined constants */
+define('PROGRAM',
+	array(
+		'Tahsin / Takhossus / Tahfizh',
+		'Tahsin',
+		'Takhossus / Tahfizh',
+		'Bahasa Arab'
+	)
+);
+
+define('JENJANG',
+	array(
+		array(
+			'Belum dites',
+		),
+		array(
+			'Belum dites',
+			'Pra-Tahsin',
+			'Tahsin 1',
+			'Tahsin 2'
+		),
+		array(
+			'Belum dites',
+			'Takhossus',
+			'Tahfizh',
+		),
+		array(
+			'Belum dites',
+			'Tingkat 0',
+			'Tingkat 1',
+		)
+	)
+);
+
+define('PENGAJAR',
+	array(
+		'Pengajar ',
+		'Instruktur ',
+		'Musyrif ',
+		'Mu`alim '
+	)
+);
+
+define('SANTRI', 'Santri ');
+
+define('SUDAH_LULUS',
+	array(
+		array(
+			'Belum pernah KBM di LPQ',
+			'Belum lulus Pra-Tahsin (mengulang)',
+			'Lulus Pra-Tahsin',
+			'Belum lulus Tahsin 1 (mengulang)',
+			'Lulus Tahsin 1',
+			'Belum lulus Tahsin 2 (mengulang)',
+			'Lulus Tahsin 2',
+			'Belum lulus Takhossus (mengulang)',
+			'Belum lulus Tahfizh'
+		),
+		array(
+			'Belum pernah KBM di LPQ',
+			'Belum lulus Pra-Tahsin (mengulang)',
+			'Lulus Pra-Tahsin',
+			'Belum lulus Tahsin 1 (mengulang)',
+			'Lulus Tahsin 1',
+			'Belum lulus Tahsin 2 (mengulang)',
+			'Lulus Tahsin 2',
+			'Belum lulus Takhossus (mengulang)',
+			'Belum lulus Tahfizh'
+		),
+		array(
+			6 => 'Lulus Tahsin 2',
+			7 => 'Belum lulus Takhossus (mengulang)',
+			8 => 'Belum lulus Tahfizh'
+		),
+		array(
+			'Belum pernah KBM di LPQ',
+			'Belum lulus Tingkat 0 (mengulang)',
+			'Lulus Tingkat 0',
+			'Belum lulus Tingkat 1 (mengulang)',
+			'Lulus Tingkat 1'
+		),
+	)
+);
+
+define('HARI',
+	array(
+		1 => 'Ahad',
+		2 => 'Senin',
+		3 => 'Selasa',
+		4 => 'Rabu',
+		5 => 'Kamis',
+		6 => 'Jumat',
+		7 => 'Sabtu'
+	)
+);

@@ -10,6 +10,11 @@ class Beranda extends CI_Controller {
 	 */
 	public function index()
 	{
+		$this->load->model('guest_model');
+		if($this->guest_model->cek_login()) {
+        	redirect(site_url('user/dasbor'));
+        };
+        
 		$data['error'] = $this->session->flashdata('error');
 		$data['success'] = $this->session->flashdata('success');
 		$this->load->view('header');
