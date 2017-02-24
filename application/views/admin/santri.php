@@ -280,7 +280,7 @@
             success: function(){
               alert('berhasil');
               $('td', tr).eq(4).html($('#jenjang > option:selected').text());
-              myTable.row(tr).invalidate().draw();
+              myTable.row(tr).invalidate().draw(false);
               $('#modal').modal('hide');
             },
             error: function() {
