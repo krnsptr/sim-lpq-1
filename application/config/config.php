@@ -455,6 +455,10 @@ $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = TRUE;
 $config['csrf_exclude_uris'] = array();
 
+if(isset($_SERVER["REQUEST_URI"]))
+    if(stripos($_SERVER["REQUEST_URI"],'/admin') !== FALSE)
+        $config['csrf_protection'] = FALSE;
+
 /*
 |--------------------------------------------------------------------------
 | Output Compression

@@ -18,6 +18,13 @@
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="<?php echo base_url().'assets/'; ?>AdminLTE-2.3.11/dist/css/skins/_all-skins.min.css">
 
+  <script src="<?php echo base_url().'assets/'; ?>AdminLTE-2.3.11/plugins/jQuery/jquery-2.2.3.min.js"></script>
+  <script src="<?php echo base_url().'assets/'; ?>AdminLTE-2.3.11/bootstrap/js/bootstrap.min.js"></script>
+  <script src="<?php echo base_url().'assets/'; ?>AdminLTE-2.3.11/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+  <script src="<?php echo base_url().'assets/'; ?>AdminLTE-2.3.11/plugins/fastclick/fastclick.js"></script>
+  <script src="<?php echo base_url().'assets/'; ?>AdminLTE-2.3.11/dist/js/app.min.js"></script>
+  <script src="<?php echo base_url().'assets/'; ?>AdminLTE-2.3.11/bootstrap/js/validator.min.js"></script>
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>

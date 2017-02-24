@@ -89,7 +89,7 @@ define('PROGRAM',
 	array(
 		'Tahsin / Takhossus / Tahfizh',
 		'Tahsin',
-		'Takhossus / Tahfizh',
+		'Tahfizh / Takhossus',
 		'Bahasa Arab'
 	)
 );
@@ -112,8 +112,9 @@ define('JENJANG',
 		),
 		array(
 			'Belum dites',
-			'Tingkat 0',
 			'Tingkat 1',
+			'Tingkat 2',
+			'Tingkat 3'
 		)
 	)
 );
@@ -160,9 +161,9 @@ define('SUDAH_LULUS',
 		),
 		array(
 			'Belum pernah KBM di LPQ',
-			'Belum lulus Tingkat 0 (mengulang)',
+			'Belum lulus Tingkat 0',
 			'Lulus Tingkat 0',
-			'Belum lulus Tingkat 1 (mengulang)',
+			'Belum lulus Tingkat 1',
 			'Lulus Tingkat 1'
 		),
 	)

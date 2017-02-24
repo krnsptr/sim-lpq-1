@@ -11,8 +11,8 @@ class User_model extends CI_Model {
 		return $this->form_validation->run();
 	}
 
-	public function validasi_akun() {
-		$anggota = $this->db->get_where('anggota', array('id_anggota' => $this->session->userdata('id_anggota')))->row();
+	public function validasi_akun($id_anggota) {
+		$anggota = $this->db->get_where('anggota', array('id_anggota' => $id_anggota))->row();
 		$un = $anggota->username;
 		$em = $anggota->email;
 		$ni = $anggota->nomor_id;
@@ -37,8 +37,8 @@ class User_model extends CI_Model {
 		return $this->form_validation->run();
 	}
 
-	public function validasi_password() {
-		$this->form_validation->set_rules('password_lama', 'Password Lama', 'required|min_length[6]');
+	public function validasi_password($admin = FALSE) {
+		if(!$admin) $this->form_validation->set_rules('password_lama', 'Password Lama', 'required|min_length[6]');
 		$this->form_validation->set_rules('password_baru', 'Password Baru', 'required|min_length[6]');
 		$this->form_validation->set_message('required', '{field} wajib diisi.');
 		$this->form_validation->set_message('min_length', '{field} minimal {param} karakter.');
@@ -46,7 +46,7 @@ class User_model extends CI_Model {
 			$this->session->set_flashdata('error', validation_errors());
 			return FALSE;
 		}
-
+		if($admin) return TRUE;
 		$pw = $this->db->get_where('anggota', array('id_anggota' => $this->session->userdata('id_anggota')))->row()->password;
 		if(password_verify($this->input->post('password_lama'), $pw)) return TRUE;
 		else {
@@ -207,24 +207,34 @@ class User_model extends CI_Model {
 			return TRUE;
 		}
 	}
-	public function edit_program ($id_anggota) {
-		$keanggotaan = $this->input->post('keanggotaan');
-		$program = $this->input->post('program');
+	public function edit_program ($id_anggota, $admin = FALSE, $keanggotaan = FALSE) {
+		if(!$admin) {
+			$keanggotaan = $this->input->post('keanggotaan');
+			$program = $this->input->post('program');
 
-		if(! $this->validasi_program($keanggotaan, $program)) return FALSE;
+			if(! $this->validasi_program($keanggotaan, $program)) return FALSE;
 
-		$data['id_anggota'] = $id_anggota;
-		$data['program'] = $program;
-
+			$cari['id_anggota'] = $id_anggota;
+			$cari['program'] = $program;	
+		}
+		
 		if($keanggotaan == 1) {
+			if($admin) {
+				$cari['id_santri'] = $this->input->post('id_santri');
+				$data['jenjang'] = (int) $this->input->post('jenjang');
+			}
 			$tabel = 'santri';
 			$data['sudah_lulus'] = (int) $this->input->post('sudah_lulus');
-			$data['kbm_tahun'] = (empty($this->input->post('kbm_tahun'))) ? NULL : $this->input->post('kbm_tahun');
-			$data['kbm_semester'] = (empty($this->input->post('kbm_semester'))) ? NULL : $this->input->post('kbm_semester');
+			$data['kbm_tahun'] = (int) $this->input->post('kbm_tahun');
+			$data['kbm_semester'] = (int) $this->input->post('kbm_semester');
 		}
 		else if($keanggotaan == 2) {
 			$tabel = 'pengajar';
-			if($program == 1) {
+			if($admin) {
+				$cari['id_pengajar'] = $this->input->post('id_pengajar');
+				$data['jenjang'] = (int) $this->input->post('jenjang');
+			}
+			else if($program == 1) {
 				$data['data1'] = (int) $this->input->post('pendaftaran');
 
 				$memenuhi_syarat = $this->input->post('memenuhi_syarat');
@@ -237,7 +247,7 @@ class User_model extends CI_Model {
 			}
 			else return FALSE;
 		}
-		$this->db->replace($tabel, $data);
+		$this->db->where($cari)->update($tabel, $data);
 		if($this->db->affected_rows() < 1) return FALSE;
 		else return TRUE;
 	}
@@ -336,12 +346,13 @@ class User_model extends CI_Model {
 		else return TRUE;
 	}
 
-	public function anggota($id_anggota) {
-		return $this->db->get_where('anggota', array('id_anggota' => $id_anggota))->row();
+	public function anggota($id_anggota = NULL) {
+		if(empty($id_anggota)) return $this->db->get('anggota')->result();
+		else return $this->db->get_where('anggota', array('id_anggota' => $id_anggota))->row();
 	}
 
 	public function edit_akun($id_anggota) {
-		if(!$this->validasi_akun()	) {
+		if(!$this->validasi_akun($id_anggota)) {
 			$this->session->set_flashdata('error', validation_errors());
 			return FALSE;
 		}
@@ -360,8 +371,8 @@ class User_model extends CI_Model {
 		}
 	}
 
-	public function edit_password($id_anggota) {
-		if(!$this->validasi_password()) return FALSE;
+	public function edit_password($id_anggota, $admin = FALSE) {
+		if(!$this->validasi_password($admin)) return FALSE;
 		$password_baru = password_hash($this->input->post('password_baru'), PASSWORD_BCRYPT);
 		$this->db->where(array('id_anggota' => $id_anggota))->set(array('password' => $password_baru))->update('anggota');
 		if($this->db->affected_rows() < 1) {
