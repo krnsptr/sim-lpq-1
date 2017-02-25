@@ -222,6 +222,7 @@ class User_model extends CI_Model {
 			if($admin) {
 				$cari['id_santri'] = $this->input->post('id_santri');
 				$data['jenjang'] = (int) $this->input->post('jenjang');
+				$data['id_kelompok'] =  (!empty($this->input->post('id_kelompok'))) ? $this->input->post('id_kelompok') : NULL;
 			}
 			$tabel = 'santri';
 			$data['sudah_lulus'] = (int) $this->input->post('sudah_lulus');

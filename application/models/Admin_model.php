@@ -7,7 +7,12 @@ class Admin_model extends CI_Model {
 		return $santri;
 	}
 	public function program_santri($id_santri) {
-		$santri = $this->db->select('sudah_lulus, kbm_tahun, kbm_semester, jenjang, id_kelompok')->from('santri s')->where(array('id_santri' => $id_santri))->get()->row();
+		$santri = $this->db->select('sudah_lulus, kbm_tahun, kbm_semester, jenis_kelamin, program, jenjang, id_kelompok')->from('santri s')->join('anggota a', 'a.id_anggota = s.id_anggota')->where(array('s.id_santri' => $id_santri))->get()->row();
+		$cari['jenis_kelamin'] = $santri->jenis_kelamin;
+		$cari['program'] = $santri->program;
+		$cari['jenjang'] = $santri->jenjang;
+		$jadwal = $this->db->get_where('kelompok_view', $cari)->result();
+		$santri->jadwal = $jadwal;
 		return $santri;
 	}
 	public function pengajar($sudah_tes = FALSE) {

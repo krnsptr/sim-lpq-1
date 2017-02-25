@@ -109,7 +109,7 @@
                     </div>
                     <div class="form-group col-md-12">
                       <label class="control-group">Kelompok</label>
-                      <select class="form-control" id="kelompok">
+                      <select class="form-control" id="id_kelompok">
 
                       </select>
                     </div>
@@ -237,22 +237,28 @@
         $('#sudah_lulus > option').remove();
         $('#kbm_tahun > option').remove();
         $('#jenjang > option').remove();
+        $('#id_kelompok > option').remove();
         $('#id_santri').val('');
       });
-      var id_santri;
+      var id_santri, program;
+      var hari = [null, 'Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
 
       function edit(pointer) {
         tr = $(pointer).parent().parent();
         id_santri = tr.attr('data-id-santri');
         program = tr.attr('data-program');
-        $('#sl'+program+' > option').clone().appendTo('#sudah_lulus');
-        $('#kt'+program+' > option').clone().appendTo('#kbm_tahun');
-        $('#jj'+program+' > option').clone().appendTo('#jenjang');
         $.ajax({
               data: {'id_santri': id_santri},
               dataType: 'json',
               url: '<?php echo site_url('admin/program-santri'); ?>',
               success: function(data){
+                $('#sl'+program+' > option').clone().appendTo('#sudah_lulus');
+                $('#kt'+program+' > option').clone().appendTo('#kbm_tahun');
+                $('#jj'+program+' > option').clone().appendTo('#jenjang');
+                $('#id_kelompok').append('<option value="">Belum ditentukan</option>');
+                for(var i in data['jadwal']) {
+                  $('#id_kelompok').append('<option value="'+data['jadwal'][i]['id_kelompok']+'"'+((data['id_kelompok'] == data['jadwal'][i]['id_kelompok']) ? ' selected' : '')+'>'+hari[data['jadwal'][i]['hari']]+' '+data['jadwal'][i]['waktu'].slice(0,-3)+' -- Kelompok '+data['jadwal'][i]['id_kelompok']+': '+data['jadwal'][i]['nama_lengkap']+' (sisa '+(10-data['jadwal'][i]['jumlah_santri'])+')</option>');
+                }
                 $('#id_santri').val(id_santri);
                 $('#sudah_lulus').val(data['sudah_lulus']).change();
                 $('#kbm_tahun').val(data['kbm_tahun']).change();
@@ -274,6 +280,7 @@
               kbm_tahun: $('#kbm_tahun').val(),
               kbm_semester: $('#kbm_semester').val(),
               jenjang: $('#jenjang').val(),
+              id_kelompok: $('#id_kelompok').val()
             },
             url: '<?php echo site_url('admin/edit-program-santri'); ?>',
             success: function(){

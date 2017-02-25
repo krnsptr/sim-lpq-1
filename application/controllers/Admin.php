@@ -91,7 +91,7 @@ class Admin extends CI_Controller {
 
 	public function edit_program_santri() {
 		if($this->user_model->edit_program(NULL, TRUE, 1)) echo 'success';
-		else show_error($this->db->last_query(), 403);
+		else show_error(NULL, 403);
 	}
 
 	public function program_pengajar() {
@@ -102,7 +102,7 @@ class Admin extends CI_Controller {
 
 	public function edit_program_pengajar() {
 		if($this->user_model->edit_program(NULL, TRUE, 2)) echo 'success';
-		else show_error($this->db->last_query(), 403);
+		else show_error(NULL, 403);
 	}
 
 	public function penjadwalan_pengajar() {
@@ -111,36 +111,36 @@ class Admin extends CI_Controller {
 		$data['jumlah_kelompok'] = $pengajar->jumlah_kelompok;
 		$data['jadwal'] = $jadwal;
 		if($pengajar) echo json_encode($data);
-		else show_error($this->db->last_query(), 403);
+		else show_error(NULL, 403);
 	}
 
 	public function edit_jumlah_kelompok() {
 		if($this->user_model->edit_jumlah_kelompok($this->input->post('id_anggota'))) echo 'success';
-		else show_error($this->db->last_query(), 403);
+		else show_error(NULL, 403);
 	}
 
 	public function tambah_penjadwalan_pengajar() {
 		if($this->user_model->tambah_penjadwalan_pengajar($this->input->post('id_anggota'), TRUE)) echo 'success';
-		else show_error($this->db->last_query(), 403);
+		else show_error(NULL, 403);
 	}
 
 	public function edit_penjadwalan_pengajar() {
 		if($this->user_model->edit_penjadwalan_pengajar($this->input->post('id_anggota'), TRUE)) echo 'success';
-		else show_error($this->db->last_query(), 403);
+		else show_error(NULL, 403);
 	}
 
 	public function hapus_penjadwalan_pengajar() {
 		if($this->user_model->hapus_penjadwalan_pengajar($this->input->post('id_anggota'), TRUE)) echo 'success';
-		else show_error($this->db->last_query(), 403);
+		else show_error(NULL, 403);
 	}
 
 	public function tambah_kelompok() {
 		if($this->admin_model->tambah_kelompok($this->input->post('id_jadwal'), $this->input->post('jenjang'))) echo 'success';
-		else show_error($this->db->last_query(), 403);
+		else show_error(NULL, 403);
 	}
 
 	public function hapus_kelompok() {
 		if($this->admin_model->hapus_kelompok($this->input->post('id_jadwal'))) echo 'success';
-		else show_error($this->db->last_query(), 403);
+		else show_error(NULL, 403);
 	}
 }
