@@ -59,7 +59,8 @@ class Admin extends CI_Controller {
 
 	public function kelompok()
 	{
-		$this->_view('kelompok');
+		$data['pengajar'] = $this->admin_model->pengajar(TRUE);
+		$this->_view('kelompok', $data);
 	}
 
 	public function spp()
@@ -101,6 +102,45 @@ class Admin extends CI_Controller {
 
 	public function edit_program_pengajar() {
 		if($this->user_model->edit_program(NULL, TRUE, 2)) echo 'success';
+		else show_error($this->db->last_query(), 403);
+	}
+
+	public function penjadwalan_pengajar() {
+		$jadwal = $this->user_model->penjadwalan_pengajar($this->input->post('id_anggota'), $this->input->post('program'));
+		$pengajar = $this->user_model->pengajar($this->input->post('id_anggota'), $this->input->post('program'));
+		$data['jumlah_kelompok'] = $pengajar->jumlah_kelompok;
+		$data['jadwal'] = $jadwal;
+		if($pengajar) echo json_encode($data);
+		else show_error($this->db->last_query(), 403);
+	}
+
+	public function edit_jumlah_kelompok() {
+		if($this->user_model->edit_jumlah_kelompok($this->input->post('id_anggota'))) echo 'success';
+		else show_error($this->db->last_query(), 403);
+	}
+
+	public function tambah_penjadwalan_pengajar() {
+		if($this->user_model->tambah_penjadwalan_pengajar($this->input->post('id_anggota'), TRUE)) echo 'success';
+		else show_error($this->db->last_query(), 403);
+	}
+
+	public function edit_penjadwalan_pengajar() {
+		if($this->user_model->edit_penjadwalan_pengajar($this->input->post('id_anggota'), TRUE)) echo 'success';
+		else show_error($this->db->last_query(), 403);
+	}
+
+	public function hapus_penjadwalan_pengajar() {
+		if($this->user_model->hapus_penjadwalan_pengajar($this->input->post('id_anggota'), TRUE)) echo 'success';
+		else show_error($this->db->last_query(), 403);
+	}
+
+	public function tambah_kelompok() {
+		if($this->admin_model->tambah_kelompok($this->input->post('id_jadwal'), $this->input->post('jenjang'))) echo 'success';
+		else show_error($this->db->last_query(), 403);
+	}
+
+	public function hapus_kelompok() {
+		if($this->admin_model->hapus_kelompok($this->input->post('id_jadwal'))) echo 'success';
 		else show_error($this->db->last_query(), 403);
 	}
 }

@@ -276,7 +276,7 @@ class User_model extends CI_Model {
 		$pengajar = $this->db->select('id_pengajar')->where(array('id_anggota' => $id_anggota, 'program' => $program))->get('pengajar')->row();
 		if(!isset($pengajar->id_pengajar)) return NULL;
 		$id_pengajar = $pengajar->id_pengajar;
-		return $this->db->where(array('id_pengajar' => $id_pengajar))->order_by('id_jadwal ASC')->get('jadwal')->result();
+		return $this->db->select('j.*, k.id_kelompok')->from('jadwal j')->join('kelompok k', 'j.id_jadwal = k.id_jadwal', 'left outer')->where(array('j.id_pengajar' => $id_pengajar))->order_by('j.id_jadwal ASC')->get()->result();
 	}
 
 	public function edit_jumlah_kelompok($id_anggota) {
@@ -294,8 +294,8 @@ class User_model extends CI_Model {
 		else return TRUE;
 	}
 
-	public function tambah_penjadwalan_pengajar($id_anggota) {
-		if(!$this->cek_penjadwalan_pengajar()) {
+	public function tambah_penjadwalan_pengajar($id_anggota, $admin = FALSE) {
+		if(!$this->cek_penjadwalan_pengajar() && !$admin) {
 			$this->session->set_flashdata('error', 'Penjadwalan pengajar sudah ditutup.');
 			return FALSE;
 		}
@@ -313,8 +313,8 @@ class User_model extends CI_Model {
 		else return TRUE;
 	}
 
-	public function edit_penjadwalan_pengajar($id_anggota) {
-		if(!$this->cek_penjadwalan_pengajar()) {
+	public function edit_penjadwalan_pengajar($id_anggota, $admin = FALSE) {
+		if(!$this->cek_penjadwalan_pengajar() && !$admin) {
 			$this->session->set_flashdata('error', 'Penjadwalan pengajar sudah ditutup.');
 			return FALSE;
 		}
@@ -332,8 +332,8 @@ class User_model extends CI_Model {
 		else return TRUE;
 	}
 
-	public function hapus_penjadwalan_pengajar($id_anggota) {
-		if(!$this->cek_penjadwalan_pengajar()) {
+	public function hapus_penjadwalan_pengajar($id_anggota, $admin = FALSE) {
+		if(!$this->cek_penjadwalan_pengajar() && !$admin) {
 			$this->session->set_flashdata('error', 'Penjadwalan pengajar sudah ditutup.');
 			return FALSE;
 		}

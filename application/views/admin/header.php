@@ -113,8 +113,8 @@
         <li<?php if(uri_string() == 'admin/anggota') echo ' class="active"'; ?>><a href="<?php echo base_url().'admin/anggota'; ?>"><span>Anggota</span></a></li>
         <li<?php if(uri_string() == 'admin/santri') echo ' class="active"'; ?>><a href="<?php echo base_url().'admin/santri'; ?>"><span>Santri</span></a></li>
         <li<?php if(uri_string() == 'admin/pengajar') echo ' class="active"'; ?>><a href="<?php echo base_url().'admin/pengajar'; ?>"><span>Pengajar</span></a></li>
-        <!--li<?php if(uri_string() == 'admin/kelompok') echo ' class="active"'; ?>><a href="<?php echo base_url().'admin/kelompok'; ?>"><span>Kelompok</span></a></li>
-        <li<?php if(uri_string() == 'admin/spp') echo ' class="active"'; ?>><a href="<?php echo base_url().'admin/spp'; ?>"><span>SPP</span></a></li>
+        <li<?php if(uri_string() == 'admin/kelompok') echo ' class="active"'; ?>><a href="<?php echo base_url().'admin/kelompok'; ?>"><span>Kelompok</span></a></li>
+        <!--li<?php if(uri_string() == 'admin/spp') echo ' class="active"'; ?>><a href="<?php echo base_url().'admin/spp'; ?>"><span>SPP</span></a></li>
         <li<?php if(uri_string() == 'admin/download') echo ' class="active"'; ?>><a href="<?php echo base_url().'admin/download'; ?>"><span>Download</span></a></li-->
       </ul><!-- /.sidebar-menu -->
     </section>

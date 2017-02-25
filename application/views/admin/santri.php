@@ -55,7 +55,7 @@
                 <td><?php echo JENJANG[$data->program][$data->jenjang]; ?></td>
                 <td>
                   <button class="btn btn-sm btn-primary edit" onclick="edit(this);">Edit Data</button>
-                  <button class="btn btn-sm btn-danger hapus" onclick="hapus(this)">Hapus</button>
+                  <!--button class="btn btn-sm btn-danger hapus" onclick="hapus(this)">Hapus</button-->
                 </td>
               </tr>
               <?php
@@ -65,7 +65,6 @@
           </table>
         </div>
         <!-- /.box-body -->
-        <!-- /.box-footer-->
       </div>
       <!-- /.box -->
 
