@@ -198,7 +198,7 @@
           },
           "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Semua"]],
           "drawCallback": function () {
-              this.api().columns([2,3,4]).every( function () {
+              this.api().columns([2,3,4, 5]).every( function () {
                   var column = this;
                   var select = $('<select><option value="">'+column.title()+'</option></select>')
                       .appendTo( $(column.footer()).empty() )
