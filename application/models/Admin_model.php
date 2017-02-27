@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin_model extends CI_Model {
 	public function santri() {
-		$santri = $this->db->select('id_santri, s.id_anggota, nama_lengkap, jenis_kelamin, program, jenjang')->from('santri s')->join('anggota a', 'a.id_anggota = s.id_anggota')->get()->result();
+		$santri = $this->db->select('id_santri, s.id_anggota, nama_lengkap, jenis_kelamin, program, jenjang, id_kelompok')->from('santri s')->join('anggota a', 'a.id_anggota = s.id_anggota')->get()->result();
 		return $santri;
 	}
 	public function program_santri($id_santri) {

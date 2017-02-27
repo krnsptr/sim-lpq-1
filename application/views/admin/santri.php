@@ -29,6 +29,7 @@
                 <th>Jenis Kelamin</th>
                 <th>Program</th>
                 <th>Jenjang</th>
+                <th>Kelompok</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -39,6 +40,7 @@
                 <td>Jenis Kelamin</td>
                 <td>Program</td>
                 <td>Jenjang</td>
+                <td>Kelompok</td>
                 <td></td>
               </tr>
             </tfoot>
@@ -53,6 +55,7 @@
                 <td><?php echo ($data->jenis_kelamin == 1) ? 'Perempuan' : 'Laki-Laki'; ?></td>
                 <td><?php echo PROGRAM[$data->program]; ?></td>
                 <td><?php echo JENJANG[$data->program][$data->jenjang]; ?></td>
+                <td><?php echo $data->id_kelompok; ?></td>
                 <td>
                   <button class="btn btn-sm btn-primary edit" onclick="edit(this);">Edit Data</button>
                   <!--button class="btn btn-sm btn-danger hapus" onclick="hapus(this)">Hapus</button-->
@@ -286,6 +289,7 @@
             success: function(){
               alert('berhasil');
               $('td', tr).eq(4).html($('#jenjang > option:selected').text());
+              $('td', tr).eq(5).html($('#id_kelompok').val());
               myTable.row(tr).invalidate().draw(false);
               $('#modal').modal('hide');
             },
