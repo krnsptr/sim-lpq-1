@@ -173,11 +173,11 @@ class Admin extends CI_Controller {
 		$data = $this->admin_model->presensi_kbm(); 
         $table = array();
     	foreach($data as $row) {
-    		$header1[0] = KODE_JENJANG[$row['program']][$row['jenjang']];
+    		$header1[0] = '';
     		$header1[1] = JENJANG[$row['program']][$row['jenjang']];
     		$header1[2] = HARI[$row['hari']].' '.$row['waktu'];
     		array_push($table, $header1);
-    		$header2[0] = ($row['jenis_kelamin'] == 1) ? '(P)' : '(L)';
+    		$header2[0] = '';
     		$header2[1] = $row['nama_lengkap'];
     		$header2[2] = " ".$row['nomor_hp'];
     		array_push($table, $header2);
@@ -195,11 +195,11 @@ class Admin extends CI_Controller {
 		$data = $this->admin_model->presensi_kbm(); 
         $table = array();
     	foreach($data as $row) {
-    		$header1[0] = KODE_JENJANG[$row['program']][$row['jenjang']];
+    		$header1[0] = '';
     		$header1[1] = JENJANG[$row['program']][$row['jenjang']];
     		$header1[2] = HARI[$row['hari']].' '.$row['waktu'];
     		array_push($table, $header1);
-    		$header2[0] = ($row['jenis_kelamin'] == 1) ? '(P)' : '(L)';
+    		$header2[0] = '';
     		$header2[1] = $row['nama_lengkap'];
     		$header2[2] = " ".$row['nomor_hp'];
     		array_push($table, $header2);
