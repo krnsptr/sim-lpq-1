@@ -156,9 +156,10 @@ class Admin extends CI_Controller {
     		$row['jenjang'] = JENJANG[$row['program']][$row['jenjang']];
     		$row['program'] = PROGRAM[$row['program']];
     		$row['hari'] = HARI[$row['hari']];
+    		$row['nomor_hp'] = " ".$row['nomor_hp'];
     		foreach($row['santri'] as $santri) {
     			array_push($row, $santri['nama_lengkap']);
-    			array_push($row, $santri['nomor_hp']);
+    			array_push($row, " ".$santri['nomor_hp']);
     		}
     		unset($row['santri']);
     		unset($row['id_kelompok']);
@@ -178,12 +179,12 @@ class Admin extends CI_Controller {
     		array_push($table, $header1);
     		$header2[0] = ($row['jenis_kelamin'] == 1) ? '(P)' : '(L)';
     		$header2[1] = $row['nama_lengkap'];
-    		$header2[2] = $row['nomor_hp'];
+    		$header2[2] = " ".$row['nomor_hp'];
     		array_push($table, $header2);
     		array_push($table, array('No.', 'Nama Santri', 'Nomor HP'));
     		$i = 1;
     		foreach($row['santri'] as $santri) {
-    			array_push($table, array($i++, $santri['nama_lengkap'], $santri['nomor_hp']));
+    			array_push($table, array($i++, $santri['nama_lengkap'], " ".$santri['nomor_hp']));
     		}
     	}
         array_to_csv($table, 'Jadwal KBM LPQ Angkatan 12 (Versi Pengajar).csv');
@@ -200,12 +201,12 @@ class Admin extends CI_Controller {
     		array_push($table, $header1);
     		$header2[0] = ($row['jenis_kelamin'] == 1) ? '(P)' : '(L)';
     		$header2[1] = $row['nama_lengkap'];
-    		$header2[2] = $row['nomor_hp'];
+    		$header2[2] = " ".$row['nomor_hp'];
     		array_push($table, $header2);
     		array_push($table, array('No.', 'Nama Santri', 'Nomor Identitas'));
     		$i = 1;
     		foreach($row['santri'] as $santri) {
-    			array_push($table, array($i++, $santri['nama_lengkap'], $santri['nomor_id']));
+    			array_push($table, array($i++, $santri['nama_lengkap'], " ".$santri['nomor_id']));
     		}
     	}
         array_to_csv($table, 'Jadwal KBM LPQ Angkatan 12 (Versi Santri).csv');
