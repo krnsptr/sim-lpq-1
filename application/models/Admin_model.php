@@ -38,4 +38,14 @@ class Admin_model extends CI_Model {
 		if($this->db->affected_rows() < 1) return FALSE;
 		else return TRUE;
 	}
+
+	public function presensi_kbm() {
+		$presensi = $this->db->select("id_kelompok, jenis_kelamin, program, jenjang, hari, TIME_FORMAT(waktu, '%H:%i') AS waktu, nama_lengkap, nomor_hp")->get('kelompok_view')->result_array();
+
+		foreach ($presensi as $i => $kelompok) {
+			$santri = $this->db->select('nama_lengkap, nomor_hp, nomor_id')->from('anggota a')->join('santri s', 'a.id_anggota = s.id_anggota')->where(array('id_kelompok' => $kelompok['id_kelompok']))->get()->result_array();
+			$presensi[$i]['santri'] = $santri;
+		}
+		return $presensi;
+	}
 }

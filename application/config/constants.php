@@ -119,6 +119,31 @@ define('JENJANG',
 	)
 );
 
+define('KODE_JENJANG',
+	array(
+		array(
+			'BPT',
+		),
+		array(
+			'BPT',
+			'TS0',
+			'TS1',
+			'TS2'
+		),
+		array(
+			'BPT',
+			'TK-',
+			'TF-',
+		),
+		array(
+			'BPT',
+			'BA1',
+			'BA2',
+			'BA3'
+		)
+	)
+);
+
 define('PENGAJAR',
 	array(
 		'Pengajar ',

@@ -143,4 +143,71 @@ class Admin extends CI_Controller {
 		if($this->admin_model->hapus_kelompok($this->input->post('id_jadwal'))) echo 'success';
 		else show_error(NULL, 403);
 	}
+
+	public function presensi_kbm() {
+		$this->load->helper('csv_helper');
+		$data = $this->admin_model->presensi_kbm(); 
+        $header = array('Jenis Kelamin', 'Program', 'Jenjang', 'Hari', 'Waktu', 'Nama Instruktur', 'Nomor HP');
+        for($i=1; $i<=12; $i++) array_push($header, 'Nama Santri '.$i, 'Nomor HP '.$i);
+        $table = array($header);
+    	$i = 1;
+    	foreach($data as $row) {
+    		$row['jenis_kelamin'] = ($row['jenis_kelamin'] == 1) ? 'Perempuan' : 'Laki-Laki';
+    		$row['jenjang'] = JENJANG[$row['program']][$row['jenjang']];
+    		$row['program'] = PROGRAM[$row['program']];
+    		$row['hari'] = HARI[$row['hari']];
+    		foreach($row['santri'] as $santri) {
+    			array_push($row, $santri['nama_lengkap']);
+    			array_push($row, $santri['nomor_hp']);
+    		}
+    		unset($row['santri']);
+    		unset($row['id_kelompok']);
+    		array_push($table, $row);
+    	}
+        array_to_csv($table, 'Presensi KBM LPQ Angkatan 12.csv');
+	}
+
+	public function jadwal_kbm_pengajar() {
+		$this->load->helper('csv_helper');
+		$data = $this->admin_model->presensi_kbm(); 
+        $table = array();
+    	foreach($data as $row) {
+    		$header1[0] = KODE_JENJANG[$row['program']][$row['jenjang']];
+    		$header1[1] = JENJANG[$row['program']][$row['jenjang']];
+    		$header1[2] = HARI[$row['hari']].' '.$row['waktu'];
+    		array_push($table, $header1);
+    		$header2[0] = ($row['jenis_kelamin'] == 1) ? '(P)' : '(L)';
+    		$header2[1] = $row['nama_lengkap'];
+    		$header2[2] = $row['nomor_hp'];
+    		array_push($table, $header2);
+    		array_push($table, array('No.', 'Nama Santri', 'Nomor HP'));
+    		$i = 1;
+    		foreach($row['santri'] as $santri) {
+    			array_push($table, array($i++, $santri['nama_lengkap'], $santri['nomor_hp']));
+    		}
+    	}
+        array_to_csv($table, 'Jadwal KBM LPQ Angkatan 12 (Versi Pengajar).csv');
+	}
+
+	public function jadwal_kbm_santri() {
+		$this->load->helper('csv_helper');
+		$data = $this->admin_model->presensi_kbm(); 
+        $table = array();
+    	foreach($data as $row) {
+    		$header1[0] = KODE_JENJANG[$row['program']][$row['jenjang']];
+    		$header1[1] = JENJANG[$row['program']][$row['jenjang']];
+    		$header1[2] = HARI[$row['hari']].' '.$row['waktu'];
+    		array_push($table, $header1);
+    		$header2[0] = ($row['jenis_kelamin'] == 1) ? '(P)' : '(L)';
+    		$header2[1] = $row['nama_lengkap'];
+    		$header2[2] = $row['nomor_hp'];
+    		array_push($table, $header2);
+    		array_push($table, array('No.', 'Nama Santri', 'Nomor Identitas'));
+    		$i = 1;
+    		foreach($row['santri'] as $santri) {
+    			array_push($table, array($i++, $santri['nama_lengkap'], $santri['nomor_id']));
+    		}
+    	}
+        array_to_csv($table, 'Jadwal KBM LPQ Angkatan 12 (Versi Santri).csv');
+	}
 }
